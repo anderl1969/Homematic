@@ -1,0 +1,7 @@
+
+# Ignorierte Dateien
+Thumbs.db
+thumbs.db
+
+# Keine hms Scripte (nur neue Variante .hsc)
+*.hms

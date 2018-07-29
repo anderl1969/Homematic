@@ -1,6 +1,6 @@
-! ####################
-! Fenster Count ALL
-! ####################
+! ######################
+! Fenster Count ALL v1.2
+! ######################
 !
 ! Ermittelt von welchem Fenster der Aufruf erfolgte!
 ! Wenn das auslösende Fenster noch offen oder gekippt ist, dann wird der Wert der Variable
@@ -12,7 +12,10 @@
 ! $srcS = 10326		Fenster.Wohn.OffenSeit
 ! $src$ = 12671		Fenster.Garage.OffenSeit
 ! $src$ = 2267		Fenster.BadOG.OffenSeit
+! $src$ = 15824		Fenster.Test.OffenSeit (Virtuelle Heizgruppe)
 !
+! v1.2	29-07-2018
+! - Einführung ExtraTime für cmd_GongAlarmReset
 ! v1.1	22-07-2018
 ! - Erweiterung auf OG Fenster
 ! v1.0	21-07-2018
@@ -29,6 +32,7 @@ if (fos) {
 	var fsb;														! DP : Fenster.XX.Schliessen.XG.AA
 	var fom;														! DP : Fenster.XX.OffenMax
 	var fss;														! DP : Fenster.XX.Sperrstunde
+	var fet;														! DP : Fenster.XX.ExtraTime
 	integer hour = system.Date("%H").ToInteger();					! akt. Stunde für zeitbezogene Alarm-Auslösung
 	integer sh;														! Sperrstunde
 
@@ -58,7 +62,7 @@ if (fos) {
 		}
 	}
 
-	! ############### DP Fenster.XX.Schliessen.XG.XX und Fenster.XX.OffenMax ermitteln #############
+	! ############### DP Fenster.XX.Schliessen.XG.XX, Fenster.XX.OffenMax, Fenster.XX.Sperrstunde und Fenster.XX.ExtraTime ermitteln #############
 	string dpId;
 	string dpName;
 	foreach(dpId, fchn.DPs().EnumUsedIDs())	{
@@ -86,6 +90,12 @@ if (fos) {
 				! Richtige Variable gefunden
 				fss = dp;
 			}
+
+			! Fenster.<Raum>.ExtraTime
+			if((dpName.StrValueByIndex(".", 0) == "Fenster") && (dpName.StrValueByIndex(".", 2) == "ExtraTime")) {
+				! Richtige Variable gefunden
+				fet = dp;
+			}
 		}
 	}
 	! ######################################################################
@@ -97,7 +107,7 @@ if (fos) {
 		sh = 0;
 	}
 
-	if (fos.Value() >= fom.Value()){
+	if (fos.Value() >= (fom.Value() + fet.Value())){
 		if (hour >= sh) {
 			fsb.State(true);
 		}

@@ -1,0 +1,25 @@
+Subject {HomeMatic Zentrale: ALARM - Watchdog} 
+Description {CUxD.Exec: Watchdog-Alarm} 
+Snappass {} 
+Snapuser {} 
+Attachment {} 
+Prio false 
+Tcl true 
+Content {
+#####################################
+Watchdog Alarm - HomeMatic Zentrale
+#####################################
+Firmware: 
+$version
+
+Timestamp: $Datum
+#####################################
+
+$textutf8 
+
+--
+Email-Addon Vorlage: 02
+CUxD.Exec
+} 
+AttType off 
+To a.haberl@outlook.com

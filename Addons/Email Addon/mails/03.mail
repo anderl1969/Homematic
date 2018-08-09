@@ -1,0 +1,30 @@
+Subject {HomeMatic Zentrale: SYSTEM-NACHRICHT} 
+Description {CUxD.Mail: System-Nachricht} 
+Snappass {} 
+Snapuser {} 
+Attachment {} 
+Prio false 
+Tcl true 
+Content {
+#####################################
+System-Nachricht HomeMatic Zentrale
+#####################################
+Firmware: 
+$version
+
+Timestamp: $Datum
+#####################################
+
+$text1
+
+$text2
+$text3
+$text4
+$text5
+
+--
+Email-Addon Vorlage: 03
+CUxD.Mail
+} 
+AttType off 
+To a.haberl@outlook.com
